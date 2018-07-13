@@ -1,0 +1,11 @@
+[Unit]
+Description=Hashicorp Consul Server
+After=network.target
+
+[Service]
+ExecStart={{ consul_binary }} agent -server -config-dir="{{ consul_config_dir }}"
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

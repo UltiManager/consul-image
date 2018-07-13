@@ -1,0 +1,4 @@
+bootstrap_expect = 1
+data_dir         = "{{ consul_data_dir }}"
+retry_join       = ["provider=aws tag_key=\"Application\" tag_value=\"consul\""]
+ui               = true

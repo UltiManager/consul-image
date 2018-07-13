@@ -1,0 +1,26 @@
+---
+- name: Install UFW
+  become: true
+  apt:
+    name: ufw
+
+- name: Start UFW
+  become: true
+  ufw:
+    policy: deny
+    state: enabled
+
+- name: Open Consul ports
+  become: true
+  ufw:
+    port: "{{ item.port }}"
+    proto: "{{ item.proto }}"
+    rule: allow
+  with_items: "{{ ufw_allowed_ports }}"
+
+- name: Allow SSH access
+  become: true
+  ufw:
+    port: 22
+    proto: tcp
+    rule: limit

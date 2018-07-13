@@ -1,0 +1,56 @@
+---
+- name: Download Consul archive
+  get_url:
+    dest: "{{ consul_download_dest }}"
+    url: "{{ consul_download_url }}"
+
+- name: Create Consul directory
+  become: true
+  file:
+    mode: 0755
+    path: "{{ consul_dir }}"
+    state: directory
+
+- name: Create Consul data directory
+  become: true
+  file:
+    mode: 0755
+    path: "{{ consul_data_dir }}"
+    state: directory
+
+- name: Install unzip
+  become: true
+  apt:
+    name: unzip
+
+- name: Unpack Consul binary
+  become: true
+  unarchive:
+    copy: false
+    dest: "{{ consul_dir }}"
+    src: "{{ consul_download_dest }}"
+
+- name: Create Consul config directory
+  become: true
+  file:
+    mode: 0755
+    path: "{{ consul_config_dir }}"
+    state: directory
+
+- name: Upload Consul config file
+  become: true
+  template:
+    src: config.hcl.j2
+    dest: "{{ consul_config }}"
+
+- name: Upload Consul service file
+  become: true
+  template:
+    src: consul.service.j2
+    dest: "{{ consul_service_file }}"
+
+- name: Start Consul service
+  become: true
+  service:
+    enabled: true
+    name: "{{ consul_service_name }}"

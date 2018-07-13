@@ -1,0 +1,16 @@
+---
+consul_download_url: "https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip"
+consul_version: "1.2.1"
+
+consul_dir: /opt/consul
+consul_download_dest: /tmp/consul.zip
+
+consul_binary: "{{ consul_dir }}/consul"
+
+consul_data_dir: /home/consul
+
+consul_service_name: consul.service
+consul_service_file: /etc/systemd/system/{{ consul_service_name }}
+
+consul_config_dir: "{{ consul_dir }}/config"
+consul_config: "{{ consul_config_dir }}/config.hcl"
