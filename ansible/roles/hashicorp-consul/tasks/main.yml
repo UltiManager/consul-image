@@ -40,7 +40,7 @@
 - name: Upload Consul config file
   become: true
   template:
-    src: config.hcl.j2
+    src: base-config.hcl.j2
     dest: "{{ consul_config }}"
 
 - name: Upload Consul service file

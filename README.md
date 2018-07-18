@@ -2,12 +2,13 @@
 
 Configuration for generating an AMI running Hashicorp's Consul.
 
-## Current Limitations
-
-* The image expects a cluster size of 1
-* Additional servers are searched for only if they have a tag `Application` that is set to `consul`.
-
 ## Using the Image
+
+### Requirements
+
+When deploying the image, additional configuration data must be applied for the server to run properly. Namely, the `bootstrap_expect` parameter must be given. This can be done by creating another config file in the `/opt/consul/config` directory with the desired parameters.
+
+### Usage with Terraform
 
 This repository is configure to create an image named `consul-server-<consul version>-<timestamp>`. This can be used in Terraform through the following:
 
